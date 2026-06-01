@@ -2,71 +2,71 @@
 
 [![CI](https://github.com/pulidoff/playwright-api-suite/actions/workflows/ci.yml/badge.svg)](https://github.com/pulidoff/playwright-api-suite/actions/workflows/ci.yml)
 
-Suite de pruebas de API automatizadas construida con Playwright Test, orientada al patrón **Service Object Model (SOM)**. Cubre los endpoints públicos de [reqres.in](https://reqres.in) (usuarios, autenticación y recursos) y genera reportes visuales con Allure.
+Automated API test suite built with Playwright Test, following the **Service Object Model (SOM)** pattern. Covers the public endpoints of [reqres.in](https://reqres.in) (users, authentication, and resources) and generates visual reports with Allure.
 
 ---
 
 ## Stack
 
-| Herramienta | Rol |
+| Tool | Role |
 |---|---|
-| [Playwright Test](https://playwright.dev/docs/test-api-testing) | Runner de tests y cliente HTTP |
-| [reqres.in](https://reqres.in) | API REST pública usada como sistema bajo prueba |
-| [Allure](https://allurereport.org) | Generación de reportes HTML |
-| [GitHub Actions](https://docs.github.com/en/actions) | Pipeline CI/CD |
-| [dotenv](https://github.com/motdotla/dotenv) | Carga de variables de entorno locales |
+| [Playwright Test](https://playwright.dev/docs/test-api-testing) | Test runner and HTTP client |
+| [reqres.in](https://reqres.in) | Public REST API used as the system under test |
+| [Allure](https://allurereport.org) | HTML report generation |
+| [GitHub Actions](https://docs.github.com/en/actions) | CI/CD pipeline |
+| [dotenv](https://github.com/motdotla/dotenv) | Local environment variable loading |
 
 ---
 
-## Estructura de carpetas
+## Folder structure
 
 ```
 playwright-api-suite/
 ├── .github/
 │   └── workflows/
-│       └── ci.yml            # Pipeline de CI (GitHub Actions)
+│       └── ci.yml            # CI pipeline (GitHub Actions)
 ├── fixtures/
-│   └── apiFixtures.js        # Fixture que inicializa SOManager con el request context
-├── schemas/                  # JSON Schemas para validación de respuestas (en progreso)
+│   └── apiFixtures.js        # Fixture that initializes SOManager with the request context
+├── schemas/                  # JSON Schemas for response validation (in progress)
 ├── serviceobjects/
-│   └── SOManager.js          # Service Object: encapsula todas las llamadas a la API
+│   └── SOManager.js          # Service Object: encapsulates all API calls
 ├── tests/
-│   ├── auth.spec.js          # Tests de registro y login
-│   ├── resources.spec.js     # Tests del endpoint /api/unknown
-│   └── users.spec.js         # Tests CRUD de usuarios
-├── .env                      # Variables de entorno locales (no se versiona)
-├── playwright.config.js      # Configuración de Playwright
+│   ├── auth.spec.js          # Register and login tests
+│   ├── resources.spec.js     # Tests for the /api/unknown endpoint
+│   └── users.spec.js         # User CRUD tests
+├── .env                      # Local environment variables (not versioned)
+├── playwright.config.js      # Playwright configuration
 └── package.json
 ```
 
 ---
 
-## Cómo correr los tests localmente
+## Running tests locally
 
-### Requisitos previos
+### Prerequisites
 
 - Node.js 20+
-- [Allure CLI](https://allurereport.org/docs/install/) instalado globalmente
+- [Allure CLI](https://allurereport.org/docs/install/) installed globally
 
-### Instalación
+### Install dependencies
 
 ```bash
 npm ci
 ```
 
-### Ejecutar los tests
+### Run the tests
 
 ```bash
 npm test
 ```
 
-### Generar el reporte Allure
+### Generate the Allure report
 
 ```bash
 npm run allure:generate
 ```
 
-### Abrir el reporte en el navegador
+### Open the report in the browser
 
 ```bash
 npm run allure:open
@@ -74,21 +74,21 @@ npm run allure:open
 
 ---
 
-## Variables de entorno
+## Environment variables
 
-Los tests leen la API key de reqres.in desde el entorno. Crea un archivo `.env` en la raíz del proyecto con el siguiente contenido:
+The tests read the reqres.in API key from the environment. Create a `.env` file at the project root with the following content:
 
 ```dotenv
-REQRES_API_KEY=tu_api_key_aqui
+REQRES_API_KEY=your_api_key_here
 ```
 
-> **Nota:** el archivo `.env` está incluido en `.gitignore` y nunca debe subirse al repositorio.
+> **Note:** the `.env` file is included in `.gitignore` and must never be committed to the repository.
 
 ### `REQRES_API_KEY`
 
-| Contexto | Cómo configurarla |
+| Context | How to set it |
 |---|---|
-| Local | Archivo `.env` en la raíz del proyecto |
-| CI (GitHub Actions) | Secret del repositorio: **Settings → Secrets and variables → Actions → New repository secret** con nombre `REQRES_API_KEY` |
+| Local | `.env` file at the project root |
+| CI (GitHub Actions) | Repository secret: **Settings → Secrets and variables → Actions → New repository secret** named `REQRES_API_KEY` |
 
-Puedes obtener una API key gratuita en [reqres.in](https://reqres.in).
+You can get a free API key at [reqres.in](https://reqres.in).
