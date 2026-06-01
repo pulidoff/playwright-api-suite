@@ -24,6 +24,8 @@ jobs:
 
       - name: Run API tests
         run: npm test
+        env:
+          REQRES_API_KEY: ${{ secrets.REQRES_API_KEY }}
 
       - name: Upload Allure results
         if: always()
